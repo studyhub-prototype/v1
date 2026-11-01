@@ -110,7 +110,7 @@ main{min-width:0;display:flex;flex-direction:column}
 .tabbar button[aria-current="page"]{color:var(--blue)}
 .tabbar .dot{position:absolute;top:2px;left:calc(50% + 8px);width:8px;height:8px;border-radius:50%;background:var(--red)}
 
-@media (max-width:900px){
+@media (max-width:767px){
   .shell{grid-template-columns:minmax(0,1fr)}
   .side{display:none}
   .tabbar{display:flex}
@@ -270,7 +270,7 @@ main{min-width:0;display:flex;flex-direction:column}
 .ag-item .p{font-size:.875rem;color:var(--ink-2)}
 .ag-item.off{opacity:.6}
 .ag-item.off .t{text-decoration:line-through}
-@media (max-width:760px){.cal-card{display:none}.agenda{display:flex}}
+@media (max-width:767px){.cal-card{display:none}.agenda{display:flex}}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:0.8125rem;color:var(--ink-2)}
 .legend span{display:inline-flex;gap:6px;align-items:center}
 
@@ -421,7 +421,7 @@ td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:ta
   .sheet{border-radius:18px 18px 0 0;width:100%;padding-bottom:max(22px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 }
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:12px;font-size:.88rem;z-index:40;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
-@media (max-width:900px){.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:767px){.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 .demo-flag{font-size:0.8125rem;color:var(--ink-3)}
 /* focus */
 .switch{width:44px;height:26px;border-radius:99px;border:0;background:var(--line);position:relative;cursor:pointer;flex:none;padding:0;transition:background .15s}
@@ -629,6 +629,166 @@ td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:ta
 .ck.nb{--bc:var(--red)}.ck.sb{--bc:var(--amber)}.ck.rb{--bc:var(--blue-2)}.ck.ib{--bc:var(--ink-2)}
 @media (prefers-reduced-motion:no-preference){.campus .route{animation:dash2 1s linear infinite}@keyframes dash2{to{stroke-dashoffset:-22}}
   .zoom-in{animation:zoomin .35s ease-out}@keyframes zoomin{from{opacity:.2;transform:scale(.94)}to{opacity:1;transform:none}}}
+
+/* ===== Responsive: tablet 768–1023px and phone <768px. Nothing below applies at 1024px and wider. ===== */
+.search-btn,.search-close,.zoom-ctl{display:none}
+.menu-full{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;-webkit-overflow-scrolling:touch;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:18px}
+.menu-full[hidden]{display:none}
+.menu-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.menu-group{display:flex;flex-direction:column;gap:8px}
+.menu-group .eyebrow{padding-left:4px}
+
+@media (max-width:1023px){
+  /* maps: fit the width, zoom with buttons (pinch-zoom of the page also works) */
+  .floor-wrap,.campus-card{position:relative}
+  .floor-wrap{overflow:auto}
+  .campus-card{display:block;overflow:auto}
+  .floor{min-width:0;width:calc(100% * var(--z,1));max-width:none}
+  .campus{width:calc(100% * var(--z,1));max-width:none;max-height:none;min-height:0}
+  .zoom-ctl{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+  .zoom-ctl span{font-size:.875rem;color:var(--ink-2);margin-right:auto}
+  .zoom-ctl button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font:600 1.3rem/1 var(--f-display);color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(11,27,54,.12)}
+  .zoom-ctl button[disabled]{opacity:.4}
+  .grid-2.even{grid-template-columns:minmax(0,1fr)}
+  .card-head{flex-wrap:wrap;row-gap:8px}
+  /* Today: due tasks right after the next class */
+  .today-grid{display:flex;flex-direction:column;align-items:stretch}
+  .today-grid>.col{display:contents}
+  .today-grid>.col:first-child>section:nth-child(1){order:1}
+  .today-grid>.col:last-child>section:nth-child(1){order:2}
+  .today-grid>.col:first-child>section:nth-child(2){order:3}
+  .today-grid>.col:first-child>section:nth-child(3){order:4}
+  .today-grid>.col:last-child>section:nth-child(2){order:5}
+  .today-grid>.col:last-child>section:nth-child(3){order:6}
+  .today-grid>.col:last-child>section:nth-child(4){order:7}
+}
+
+/* tablet: icon sidebar, content uses the full width */
+@media (min-width:768px) and (max-width:1023px){
+  .shell{grid-template-columns:76px minmax(0,1fr)}
+  .side{padding:14px 10px 0;gap:10px}
+  .brand{justify-content:center;padding:0}
+  .brand>div:last-child{display:none}
+  .logo{min-width:48px;height:42px;padding:0 6px;font-size:.85rem}
+  .nav-label{display:none}
+  .nav-group{gap:4px}
+  .nav-group+.nav-group{border-top:1px solid rgba(255,255,255,.12);padding-top:10px}
+  .nav-item{justify-content:center;padding:0;height:46px;font-size:0;position:relative}
+  .nav-item .i{width:22px;height:22px}
+  .nav-item .count{position:absolute;top:4px;right:4px;margin:0;padding:3px 6px}
+  .nav-item .nav-sub{display:none}
+  .profile{justify-content:center;padding:6px 0}
+  .profile>div:not(.avatar),.profile .gear,.proto-note{display:none}
+  .topbar .mobile-brand{display:none}
+  .cal{min-width:0;grid-template-columns:52px repeat(5,minmax(0,1fr))}
+  .cal-h{padding:10px 6px;flex-wrap:wrap}
+  .cal-h .cal-m{display:none}
+  .ev{padding:4px 6px 4px 9px}
+  .ev .t{font-size:.875rem}
+  .ev .r{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .due-tile{padding:4px 6px}
+}
+
+/* phone */
+@media (max-width:767px){
+  :root{font-size:17.07px}            /* 0.9375rem body text = 16px */
+  body{font-size:16px}
+  h1{font-size:1.45rem}
+  .topbar{gap:8px;padding-block:8px}
+  .topbar .mobile-brand{flex:1;min-width:0}
+  .topbar .mobile-brand .logo{min-width:42px;height:34px;padding:0 6px;font-size:.75rem;border-radius:9px;flex:none}
+  #page-title{display:block!important;font:700 1.05rem/1.2 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .top-actions{margin-left:0;align-items:center}
+  .search{display:none}
+  .search-btn{display:grid}
+  .icon-btn{width:44px;height:44px}
+  .topbar.search-open{backdrop-filter:none;-webkit-backdrop-filter:none;z-index:70}
+  .topbar.search-open .search{display:flex;align-items:center;gap:8px;position:fixed;left:0;right:0;top:0;max-width:none;z-index:60;background:var(--bg);border-bottom:1px solid var(--line);
+    padding:calc(10px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+  .topbar.search-open .search .i{left:calc(max(16px,env(safe-area-inset-left,0px)) + 12px);top:calc(env(safe-area-inset-top,0px) + 22px)}
+  .topbar.search-open .search input{flex:1;height:44px;font-size:16px}
+  .topbar.search-open .search-close{display:inline-flex}
+  .topbar.search-open .results{position:fixed;top:calc(env(safe-area-inset-top,0px) + 65px);left:0;right:0;bottom:0;max-height:none;border-radius:0;border:0;box-shadow:none;padding:8px max(10px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+  .results button{min-height:48px}
+  .content{padding-top:18px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));gap:18px}
+  .grid-2,.col,.view{gap:18px!important}
+  .card{padding:16px}
+  .tabbar button{min-height:50px;font-size:.8rem;justify-content:center}
+  .tabbar .i{width:22px;height:22px}
+  /* touch targets ≥ 44px */
+  .btn,.btn.sm{min-height:44px;height:auto;padding:9px 14px;white-space:normal;text-align:left}
+  .filters button,.chipset button,.seg button,.stepper-nav li,.ck,.chips button,.tabs button,.stepper button{min-height:44px}
+  .stepper button{min-width:44px}
+  .filters,.chipset,.actions,.chips{gap:8px}
+  .link{min-height:44px;display:inline-flex;align-items:center;text-align:left;justify-content:flex-start}
+  .facts .link{min-height:0;padding:4px 0}
+  .back{min-height:44px}
+  .li,.tm,.topic-row,.tl-row,.ag-item,.more-list button,.radio{min-height:48px}
+  .switch{width:52px;height:32px}
+  .switch::after{width:26px;height:26px}
+  .switch[aria-checked="true"]::after{transform:translateX(20px)}
+  .switch::before{content:"";position:absolute;inset:-7px -4px}
+  .check{width:30px;height:30px;position:relative}
+  .check::before{content:"";position:absolute;inset:-8px}
+  .seat{height:44px;font-size:.8125rem}
+  .task .t{display:block;min-height:44px;padding:10px 0;margin:-10px 0 -6px;width:100%}
+  .seatmap{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+  .dur input{height:48px;font-size:16px}
+  input,select,textarea{font-size:16px!important}
+  .field input,.field select,.map-search input{height:46px}
+  /* one column */
+  .stats-row,.space-grid,.bld-grid,.course-grid,.doc-grid,.contacts,.people.grid,.form-grid,.legend-card,.canteen-grid,.also,.kpis{grid-template-columns:minmax(0,1fr)}
+  .form-grid .full{grid-column:auto}
+  .stats-row{gap:10px}
+  .stat.card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:12px 16px}
+  .stat .v{grid-column:2;grid-row:1/span 2;margin:0;font-size:1.5rem;text-align:right}
+  .stat .s,.stat .ects-bar{grid-column:1}
+  .subject{grid-template-columns:minmax(0,1fr)}
+  .page-head{align-items:flex-start}
+  .card-head{flex-wrap:wrap;row-gap:8px}
+  .pill{white-space:normal;height:auto;min-height:26px;padding:3px 10px;line-height:1.3}
+  .cal-opt{flex-wrap:wrap}
+  .cal-opt>.small.muted{display:none}
+  .exam{grid-template-columns:minmax(0,1fr)}
+  .exam .cap{grid-column:auto;grid-row:auto}
+  /* tables become one card per row */
+  .table-wrap{overflow:visible}
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr{display:block;width:100%}
+  table.stack tr{border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin-bottom:10px;background:var(--surface)}
+  table.stack td{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;border:0;border-bottom:1px solid var(--line);text-align:right;min-width:0}
+  table.stack tr td:last-child{border-bottom:0}
+  table.stack td::before{content:attr(data-label);font:600 .8125rem var(--f-body);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);text-align:left;flex:none}
+  table.stack td[data-label=""]::before{display:none}
+  table.stack td.num{font-family:var(--f-mono)}
+  .rooms-table .eqcol{display:flex}
+  .rooms-table .blocks{width:150px}
+  /* detail views open as bottom sheets with a sticky close button */
+  .overlay{place-items:end stretch;padding:0}
+  .sheet{border-radius:20px 20px 0 0;width:100%;max-height:calc(100% - 20px);gap:14px;
+    padding:0 max(18px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+  .sheet-head{position:sticky;top:0;z-index:3;background:var(--surface);padding:16px 0 10px;border-bottom:1px solid var(--line)}
+  .sheet-head .icon-btn{flex:none}
+  .sheet .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sheet .actions .btn{flex:1 1 auto;justify-content:center}
+  .toast{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  /* calendar: day agenda */
+  .cal-head .cal-bar{width:100%;justify-content:space-between}
+  .agenda{touch-action:pan-y}
+  .cal-legend .sep{display:none}
+  /* study assistant: input stays above the tab bar and the keyboard */
+  .chat{min-height:0}
+  .composer{position:sticky;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:3;background:var(--surface);padding-top:8px}
+  .composer .btn{min-width:48px;justify-content:center}
+  body.kb .tabbar{display:none}
+  body.kb .composer{bottom:0}
+  body.kb .content{padding-bottom:16px}
+  /* map */
+  .campus-grid{grid-template-columns:minmax(0,1fr)}
+  .stepper-nav{flex-wrap:wrap}
+  .floor-wrap .floor text{font-size:15px}
+}
 </style>
 
 <div class="shell">
@@ -665,14 +825,16 @@ td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:ta
 
   <main>
     <div class="topbar">
-      <div class="mobile-brand"><div class="logo">VŠE</div><span>Study Hub</span></div>
+      <div class="mobile-brand"><div class="logo">VŠE</div><span id="page-title">Study Hub</span></div>
       <div class="search">
         <svg class="i" data-icon="search"></svg>
         <input id="q" type="search" placeholder="Search courses, topics, rooms, tasks…" autocomplete="off" aria-label="Search">
+        <button class="btn search-close" type="button" data-searchclose>Cancel</button>
         <div class="results" id="results" hidden></div>
       </div>
       <div class="top-actions">
         <button class="pill blue" id="focus-pill" data-go="focus" hidden style="height:38px;border:0;cursor:pointer;font-size:.82rem"></button>
+        <button class="icon-btn search-btn" type="button" data-searchopen aria-label="Search"><svg class="i" data-icon="search"></svg></button>
       </div>
     </div>
     <div class="content" id="view"></div>
@@ -682,11 +844,12 @@ td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:ta
 <nav class="tabbar" aria-label="Tabs">
   <button data-go="today"><svg class="i" data-icon="home"></svg>Today</button>
   <button data-go="calendar"><svg class="i" data-icon="calendar"></svg>Calendar</button>
-  <button data-go="courses"><svg class="i" data-icon="book"></svg>Courses</button>
   <button data-go="tasks"><svg class="i" data-icon="check"></svg>Tasks<span class="dot" id="tab-dot" hidden></span></button>
-  <button data-go="more"><svg class="i" data-icon="more"></svg>More</button>
+  <button data-go="courses"><svg class="i" data-icon="book"></svg>Courses</button>
+  <button data-go="more" data-menu><svg class="i" data-icon="more"></svg>More</button>
 </nav>
 
+<div class="menu-full" id="menu" role="dialog" aria-modal="true" aria-label="More" hidden></div>
 <div class="overlay" id="overlay" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title"></div></div>
 <div class="toast" id="toast" role="status" hidden></div>
 
@@ -939,8 +1102,8 @@ document.querySelectorAll('svg[data-icon]').forEach(s=>{s.setAttribute('viewBox'
 
 let toastTimer;
 function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,3200)}
-function openSheet(html){$('#sheet').innerHTML=html;$('#overlay').hidden=false;const f=$('#sheet').querySelector('button,a,input,textarea');f&&f.focus()}
-function renderSheet(html){const sh=$('#sheet');const y=sh.scrollTop;sh.innerHTML=html;$('#overlay').hidden=false;sh.scrollTop=y}
+function openSheet(html){$('#sheet').innerHTML=html;stackTables($('#sheet'));$('#overlay').hidden=false;const f=$('#sheet').querySelector('button,a,input,textarea');f&&f.focus()}
+function renderSheet(html){const sh=$('#sheet');const y=sh.scrollTop;sh.innerHTML=html;stackTables(sh);$('#overlay').hidden=false;sh.scrollTop=y}
 function closeSheet(){$('#overlay').hidden=true}
 const sheetClose=`<button class="icon-btn" data-close aria-label="Close">${icon('close')}</button>`;
 
@@ -1002,12 +1165,38 @@ function go(v,opts={}){
   state.view=v;Object.assign(state,opts);render();window.scrollTo({top:0});
 }
 
+/* ===== Phone and tablet helpers (no effect at 1024px and wider) ===== */
+const PAGE_TITLES={today:'Today',calendar:'Calendar',courses:'Courses',tasks:'Tasks',focus:'Focus',cafeteria:'Cafeteria',library:'Library & study rooms',buildings:'Buildings & rooms',map:'Indoor map',registration:'Course registration',exams:'Exams',grades:'Grades & credits',documents:'Documents',assistant:'Study assistant',settings:'Settings',more:'More'};
+const isPhone=()=>window.matchMedia('(max-width:767px)').matches;
+// Tables get a label per cell so they can be shown as one card per row on phones.
+function stackTables(root){root.querySelectorAll('table').forEach(t=>{const ths=[...t.querySelectorAll('thead th')].map(th=>th.textContent.trim());if(!ths.length)return;t.classList.add('stack');t.querySelectorAll('tbody tr').forEach(tr=>[...tr.children].forEach((td,i)=>{if(!td.hasAttribute('colspan'))td.dataset.label=ths[i]||''}))})}
+const MENU=[['My studies',[['focus','moon','Focus','Block apps, timers, focus modes']]],
+  ['Campus',[['cafeteria','food','Cafeteria','Menu and opening hours'],['library','seat','Library & study rooms','Book a seat or team room'],['buildings','building','Buildings & rooms','Opening hours and free rooms'],['map','map','Indoor map','Walking directions to any room']]],
+  ['Organisation',[['registration','register','Course registration','Credits, catalogue, dates'],['exams','exam','Exams','Register for exam dates'],['grades','grades','Grades & credits','Results and average'],['documents','folder','Documents','Confirmations, transcript, contacts']]],
+  ['Help',[['assistant','chat','Study assistant','Ask about deadlines, rooms, topics'],['settings','settings','Settings','Calendar sync and profile']]]];
+function openMenu(){
+  const m=$('#menu');
+  m.innerHTML=`<div class="menu-head"><h1>More</h1><button class="icon-btn" data-menuclose aria-label="Close menu">${icon('close')}</button></div>
+   <button class="card row" data-go="settings" style="text-align:left;cursor:pointer;color:var(--ink)"><span class="avatar lg">${e(STUDENT.initials)}</span><span style="min-width:0"><b>${e(STUDENT.full)}</b><br><span class="small muted">${e(STUDENT.programme)} · semester ${STUDENT.semester}</span></span></button>
+   ${MENU.map(([g,items])=>`<div class="menu-group"><p class="eyebrow">${e(g)}</p><div class="more-list">${items.map(i=>`<button data-go="${i[0]}" ${state.view===i[0]?'aria-current="page"':''}><span class="ico">${icon(i[1])}</span><span><div class="t">${e(i[2])}</div><div class="s">${e(i[3])}</div></span><span class="chev">${icon('right')}</span></button>`).join('')}</div></div>`).join('')}
+   <p class="small muted" style="text-align:center">Student prototype – not an official VŠE service</p>`;
+  m.hidden=false;document.body.style.overflow='hidden';const c=m.querySelector('[data-menuclose]');c&&c.focus();
+}
+function closeMenu(){const m=document.getElementById('menu');if(m&&!m.hidden){m.hidden=true;document.body.style.overflow=''}}
+function openSearch(){const tb=document.querySelector('.topbar');tb.classList.add('search-open');setTimeout(()=>{const q=document.getElementById('q');q&&q.focus()},30)}
+function closeSearch(){const tb=document.querySelector('.topbar');if(tb&&tb.classList.contains('search-open')){tb.classList.remove('search-open');const q=document.getElementById('q');if(q){q.value='';q.blur()}const r=document.getElementById('results');if(r)r.hidden=true}}
+const ZOOMS=[1,1.5,2,3];
+const zoomBar=()=>{const z=state.mapZoom||1;return`<div class="zoom-ctl"><span>Zoom ${Math.round(z*100)} %</span><button data-zoom="-1" aria-label="Zoom out" ${z<=1?'disabled':''}>−</button><button data-zoom="1" aria-label="Zoom in" ${z>=3?'disabled':''}>+</button></div>`};
+const withZoom=svg=>svg.replace(/^<svg class="(floor|campus)"/,m=>`${m} style="--z:${state.mapZoom||1}"`);
 function render(){
   markNav();setCounts();
   const r={today,calendar,courses,course:courseView,tasks,registration,exams,grades,documents,assistant,more,focus,cafeteria,library,buildings,map:mapView,settings:settingsView}[state.view]||today;
   view.innerHTML=`<div class="view" style="display:flex;flex-direction:column;gap:22px">${r()}</div>`;
+  stackTables(view);closeMenu();closeSearch();
+  const pt=$('#page-title');if(pt)pt.textContent=state.view==='course'&&C[state.course]?C[state.course].name:(PAGE_TITLES[state.view]||'Study Hub');
   if(state.view==='assistant'){const log=$('#chatlog');if(log)log.scrollTop=log.scrollHeight}
   if(state.view==='calendar')fitCal();
+  if(state.view==='map'&&(state.mapZoom||1)>1){const box=document.querySelector('.floor-wrap');const end=box&&box.querySelector('.end');if(end){const b=box.getBoundingClientRect(),r=end.getBoundingClientRect();box.scrollLeft+=r.left-b.left-b.width/2;box.scrollTop+=r.top-b.top-b.height/2}}
   try{history.replaceState(null,'',state.view==='course'?'#course-'+state.course:'#'+state.view)}catch(_){}
   updateFocusLive();
 }
@@ -1047,7 +1236,7 @@ function today(){
   const dueHtml=`<div class="task-mini">${due.map(t=>{const u=urgency(t);return`<button class="tm" style="--uc:var(--${u})" data-task="${t.id}"><span class="bar"></span><div style="min-width:0;flex:1"><div class="t">${e(t.title)}</div><div class="s">${e(C[t.course].name)} · due ${e(fmtDay(t.due))}, ${fmtTime(t.due)} · ${e(relDay(t.due))}</div></div><span class="pill ${u}">${URG[u].label}</span></button>`}).join('')}</div>`;
   return `<header class="page-head"><div><p class="eyebrow">${e(fmtLong(now))} · ${inSem?`Week ${wk} of ${WEEKS}`:e(SEMESTER_LABEL)}</p><h1>${hi}, ${e(STUDENT.first)}</h1>
      <p class="lede">${todays.filter(s=>!s.cancelled).length} classes today · ${red?`<span style="color:var(--red);font-weight:600">${red} task${red>1?'s':''} to start now</span>`:'all tasks on track'}</p></div></header>
-   <div class="grid-2">
+   <div class="grid-2 today-grid">
      <div class="col">${nextCard}
        <section class="card"><div class="card-head"><h2>Today</h2><button class="link" data-go="calendar">Week view</button></div>${tl}</section>
        <section class="card"><div class="card-head"><h2>This week's topics</h2><span class="pill grey">Week ${wkNow}</span></div>${topics}</section>
@@ -1811,7 +2000,7 @@ function mapView(){
   if(m.stage==='campus'){
     const key=t?campusKeyOf(t.b,t.item):(m.pick||null);const c=key&&CAMPUS[key];
     return `${head}${search}
-     <div class="campus-grid"><section class="card floor-wrap campus-card">${campusSvg(key)}</section>
+     <div class="campus-grid">${zoomBar()}<section class="card floor-wrap campus-card">${withZoom(campusSvg(key))}</section>
      <div class="col">${c?`<section class="card"><div class="card-head"><div><p class="eyebrow">Step 1 · walk across campus</p><h2>${e(c.label)}</h2></div><span class="pill blue">${c.mins} min walk</span></div>
         <ol class="route-steps">${c.steps.map(x=>`<li><span>${e(x)}</span></li>`).join('')}</ol>
         ${t?`<div class="notice" style="margin-top:10px">${icon('pin')}<span>Your destination: <b>${e(t.item.label||t.item.id)}</b>, ${e(FLOOR_NAME(t.f).toLowerCase())}</span></div>`:''}
@@ -1826,7 +2015,7 @@ function mapView(){
   return `${head}${search}
    <div class="row" style="flex-wrap:wrap;gap:10px"><button class="btn sm" data-mapstage="campus">${icon('left')}Campus overview</button><div class="filters">${Object.keys(BLD_INFO).map(b=>`<button aria-pressed="${m.b===b}" data-mapb="${b}">${e(BUILDINGS[b].name)}</button>`).join('')}</div>
      <div class="filters">${BLD_INFO[m.b].floors.map(f=>`<button aria-pressed="${m.f===f}" data-mapf="${f}" aria-label="${e(FLOOR_NAME(f))}">${f==='0'?'G':f}${t&&t.b===m.b&&t.f===f?' ●':''}</button>`).join('')}</div></div>
-   <div class="grid-2"><section class="card floor-wrap zoom-in">${floorSvg(m.b,m.f,t)}</section>
+   <div class="grid-2">${zoomBar()}<section class="card floor-wrap zoom-in">${withZoom(floorSvg(m.b,m.f,t))}</section>
    <div class="col">${t?`<section class="card"><div class="card-head"><div><p class="eyebrow">Step 2 · ${e(BUILDINGS[t.b].name)} · ${e(FLOOR_NAME(t.f))}</p><h2>${e(t.item.label||t.item.id)}</h2></div><span class="pill blue">${ri.mins} min walk</span></div>
        <ol class="route-steps">${ri.steps.map(x=>`<li><span>${e(x)}</span></li>`).join('')}</ol>
        ${t.b!==m.b?`<div class="notice">${icon('info')}<span>${e(t.item.label||t.item.id)} is in ${e(BUILDINGS[t.b].name)}.</span></div><button class="btn sm" data-mapb="${t.b}" style="margin-top:8px">Show ${e(BUILDINGS[t.b].name)}</button>`:t.f!==m.f?`<button class="btn sm" data-mapf="${t.f}">Show ${e(FLOOR_NAME(t.f).toLowerCase())}</button>`:''}
@@ -1911,7 +2100,8 @@ document.addEventListener('click',async ev=>{
   const el=ev.target.closest('button,a,[data-close]');if(!el)return;
   const d=el.dataset;
   if(el.id==='overlay'){closeSheet();return}
-  if(d.sr!==undefined){qIn.value='';res.hidden=true}
+  if(d.menu!==undefined&&isPhone()){openMenu();return}
+  if(d.sr!==undefined){qIn.value='';res.hidden=true;closeSearch()}
   if(d.toggle){const id=d.toggle;state.done.has(id)?state.done.delete(id):state.done.add(id);store.set('done',[...state.done]);toast(state.done.has(id)?'Marked as done':'Marked as open');if(d.close!==undefined)closeSheet();render();return}
   if(d.close!==undefined){closeSheet();return}
   if(d.go){closeSheet();go(d.go);return}
@@ -1933,6 +2123,10 @@ document.addEventListener('click',async ev=>{
   if(d.calgoogle!==undefined){setTimeout(()=>{closeSheet();toast('Google Calendar opened in a new tab. Check the details and click Save.')},50);return}
   if(d.calconnect){const k=d.calconnect;settings.cal[k]=!settings.cal[k];saveSettings();toast(settings.cal[k]?`${PROVIDERS[k].name} connected`+(settings.sync==='auto'?'. Your classes, deadlines and exams are syncing.':'.'):`${PROVIDERS[k].name} disconnected`);render();return}
   if(d.syncmode){settings.sync=d.syncmode;saveSettings();const any=Object.values(settings.cal).some(Boolean);toast(d.syncmode==='auto'?(any?'Automatic sync on: all classes, deadlines and exams go to your calendar.':'Automatic sync on. Connect a calendar to start syncing.'):'Manual mode: use “Add to calendar” on single items.');render();return}
+  if(d.menuclose!==undefined){closeMenu();return}
+  if(d.searchopen!==undefined){openSearch();return}
+  if(d.searchclose!==undefined){closeSearch();return}
+  if(d.zoom){const i=Math.max(0,Math.min(ZOOMS.length-1,ZOOMS.indexOf(state.mapZoom||1)+Number(d.zoom)));state.mapZoom=ZOOMS[i];render();return}
   if(d.campus){openCampus(d.campus);return}
   if(d.mapstage){state.map=state.map||{b:'NB',f:'3'};state.map.stage=d.mapstage;render();return}
   if(d.ask){ask(d.ask);return}
@@ -1970,7 +2164,21 @@ document.addEventListener('click',async ev=>{
   if(d.ics){const [kind,id]=d.ics.split(':');calSheet(kind,id);return}
 });
 $('#overlay').addEventListener('click',ev=>{if(ev.target.id==='overlay')closeSheet()});
-document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!$('#overlay').hidden)closeSheet()});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){if(!$('#overlay').hidden)closeSheet();else{closeMenu();closeSearch()}}});
+// phone: swipe left/right in the day agenda to change the day
+let swipeX=null,swipeY=null;
+document.addEventListener('touchstart',ev=>{if(state.view==='calendar'&&ev.target.closest('.agenda')){swipeX=ev.touches[0].clientX;swipeY=ev.touches[0].clientY}else swipeX=null},{passive:true});
+document.addEventListener('touchend',ev=>{if(swipeX==null)return;const dx=ev.changedTouches[0].clientX-swipeX,dy=ev.changedTouches[0].clientY-swipeY;swipeX=null;if(Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy)*1.5)return;
+  const cur=parseIso(state.calDay);let d=dow(cur)+(dx<0?1:-1);
+  if(d>5){state.calOffset++;state.calDay=null;render();const f=document.querySelector('[data-calday]');if(f){state.calDay=f.dataset.calday;render()}return}
+  if(d<1){state.calOffset--;state.calDay=null;render();const all=document.querySelectorAll('[data-calday]');if(all.length){state.calDay=all[all.length-1].dataset.calday;render()}return}
+  state.calDay=iso(addDays(cur,dx<0?1:-1));render()},{passive:true});
+// phone: hide the tab bar while the keyboard is open so the input stays visible
+document.addEventListener('focusin',ev=>{if(isPhone()&&ev.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea'))document.body.classList.add('kb')});
+document.addEventListener('focusout',()=>setTimeout(()=>{const a=document.activeElement;if(!a||!a.matches||!a.matches('input,textarea'))document.body.classList.remove('kb')},120));
+// tablet: icon sidebar shows the page name as a tooltip
+function syncRailTitles(){const rail=window.matchMedia('(min-width:768px) and (max-width:1023px)').matches;document.querySelectorAll('.nav-item').forEach(b=>{if(!b.dataset.label)b.dataset.label=b.textContent.trim();if(rail){b.setAttribute('title',b.dataset.label);b.setAttribute('aria-label',b.dataset.label)}else{b.removeAttribute('title');b.removeAttribute('aria-label')}})}
+syncRailTitles();window.addEventListener('resize',syncRailTitles);
 document.addEventListener('submit',ev=>{
   if(ev.target.id==='composer'){ev.preventDefault();const i=$('#ask');ask(i.value)}
   if(ev.target.id==='map-form'){ev.preventDefault();const q=$('#map-q').value.trim();if(q)navTo(q)}
